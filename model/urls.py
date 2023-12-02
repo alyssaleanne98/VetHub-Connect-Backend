@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import index
+from .views import CommunityAPIView, CommunityDetail 
 
 urlpatterns = [
-    path('', index, name='community'),
+    path('', CommunityAPIView.as_view(), name='community'),
 ]
