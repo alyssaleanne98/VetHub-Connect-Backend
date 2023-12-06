@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status 
 from .models import Community
 from .serializers import CommunitySerializer
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
 # def index(request):
@@ -36,15 +37,18 @@ class CommunityAPIView(APIView):
 
 class CommunityDetail(APIView):
 
-    def get(self, request):
+    def get(self, request, pk):
         print(request) 
-        #Show Request
+        #Show Request 
+        community = get_object_or_404(Community, pk=pk)
+        data = CommunitySerializer(community).data
+        return Response(data)
 
-    def put(self, request):
+    def put(self, request, pk):
         print(request) 
         #Update Request
 
-    def delete(self, request):
+    def delete(self, request, pk):
         #Delete Request
         print(request)
 
