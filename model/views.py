@@ -47,10 +47,23 @@ class CommunityDetail(APIView):
     def put(self, request, pk):
         print(request) 
         #Update Request
+        community = get_object_or_404(Community, pk=pk)
+        updated = CommunitySerializer(community, data=request.data, partial=True)
+        if updated.is_valid():
+            updated.save()
+            return Response(updated.data)
+        else: 
+            return Response(updated.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+
+
 
     def delete(self, request, pk):
         #Delete Request
         print(request)
+        community = get_object_or_404(Community, pk=pk)
+        community.delete()
+        return Response(status.status.HTTP_204_NO_CONTENT)
 
 
 
